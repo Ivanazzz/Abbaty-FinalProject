@@ -1,0 +1,105 @@
+<div class="container">
+  <div class="filter-container">
+    <div class="form-group">
+      <label for="firstName"> Първо име: </label>
+      <input
+        #nameInput="ngModel"
+        type="text"
+        class="form-control"
+        [(ngModel)]="personDto.firstName"
+        id="firstName"
+      />
+    </div>
+    <div class="form-group">
+      <label for="middleName"> Бащино име: </label>
+      <input
+        #nameInput="ngModel"
+        type="text"
+        class="form-control"
+        [(ngModel)]="personDto.middleName"
+        id="middleName"
+      />
+    </div>
+    <div class="form-group">
+      <label for="lastName"> Фамилия: </label>
+      <input
+        #nameInput="ngModel"
+        type="text"
+        class="form-control"
+        [(ngModel)]="personDto.lastName"
+        id="lastName"
+      />
+    </div>
+    <div class="form-group">
+      <label for="uic"> ЕГН: </label>
+      <input
+        #nameInput="ngModel"
+        type="text"
+        class="form-control"
+        [(ngModel)]="personDto.uic"
+        id="uic"
+      />
+    </div>
+    <div class="form-group">
+      <label for="birthDate"> Дата на раждане: </label>
+      <input
+        #nameInput="ngModel"
+        type="text"
+        class="form-control"
+        [(ngModel)]="personDto.birthDate"
+        id="birthDate"
+      />
+    </div>
+    <div class="form-group">
+      <label for="gender"> Пол: </label>
+      <select
+        #typeInput="ngModel"
+        name="gender"
+        [(ngModel)]="personDto.gender"
+        id="gender"
+        class="form-control"
+      >
+        <option value="Male">Мъж</option>
+        <option value="Female">Жена</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="birthPlace"> Месторождение: </label>
+      <input
+        #nameInput="ngModel"
+        type="text"
+        class="form-control"
+        [(ngModel)]="personDto.birthPlace"
+        id="birthPlace"
+      />
+    </div>
+
+    <button
+      class="btn btn-primary"
+      type="button"
+      (click)="getFiltered(personDto)"
+    >
+      Търсене
+    </button>
+  </div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">ЕГН</th>
+        <th scope="col">Име</th>
+        <th scope="col">Месторождение</th>
+        <th scope="col">Дата на раждане</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let person of people">
+        <td>{{ person.uic }}</td>
+        <td>
+          {{ person.firstName }} {{ person.middleName }} {{ person.lastName }}
+        </td>
+        <td>{{ person.birthPlace }}</td>
+        <td>{{ person.birthDate }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

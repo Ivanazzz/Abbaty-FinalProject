@@ -100,6 +100,51 @@ namespace SchoolRegister.Repositories.Users
             return userDto;
         }
 
+        public async Task<List<UserDto>> GetAllUsersAsync()
+        {
+            var users = await context.Users
+                .Include(u => u.School)
+                .Where(u => u.IsActive == true)
+                .ToListAsync();
+
+            var userDtos = new List<UserDto>();
+
+            foreach (var user in users)
+            {
+                userDtos.Add(new UserDto()
+                {
+                    Id = user.Id,
+                    Username = user.Username,
+                    Phone = user.Phone,
+                    SchoolName = user.School.Name
+                });
+            }
+
+            return userDtos;
+        }
+
+        public async Task<List<UserDto>> GetFilteredUsersAsync(UserFilterDto filter)
+        {
+            var users = await filter
+                .WhereBuilder(context.Users.Include(u => u.School).AsQueryable())
+                .ToListAsync();
+
+            var userDtos = new List<UserDto>();
+
+            foreach (var user in users)
+            {
+                userDtos.Add(new UserDto()
+                {
+                    Id = user.Id,
+                    Username = user.Username,
+                    Phone = user.Phone,
+                    SchoolName = user.School.Name
+                });
+            }
+
+            return userDtos;
+        }
+
         private string HashPasword(string password, out byte[] salt)
         {
             salt = RandomNumberGenerator.GetBytes(keySize);

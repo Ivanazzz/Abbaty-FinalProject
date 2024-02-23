@@ -4,7 +4,6 @@ import { BrowserModule } from "@angular/platform-browser";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
-import { FormsModule } from "@angular/forms";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { CommonModule } from "@angular/common";
 import { ToastrModule } from "ngx-toastr";
@@ -15,6 +14,11 @@ import { RegistrationComponent } from "../user/components/registration/registrat
 import { AuthInterceptor } from "./interceptors/auth.interceptor";
 import { UserService } from "../user/services/user.service";
 import { BlankPageComponent } from "./root/blank-page/blank-page.component";
+import { AllUsersComponent } from "../user/components/all-users/all-users.component";
+import { FormsModule } from "@angular/forms";
+import { AllSchoolsComponent } from "../school/components/all-schools/all-schools.component";
+import { ErrorInterceptor } from "./interceptors/error.interceptor";
+import { AllPeopleComponent } from "../person/components/all-people/all-people.component";
 
 export function appInitializer(userService: UserService) {
   return () => userService.initializeUser();
@@ -27,13 +31,16 @@ export function appInitializer(userService: UserService) {
     LoginComponent,
     RegistrationComponent,
     BlankPageComponent,
+    AllUsersComponent,
+    AllSchoolsComponent,
+    AllPeopleComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule,
     NgbModule,
+    FormsModule,
     CommonModule,
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
@@ -46,6 +53,11 @@ export function appInitializer(userService: UserService) {
       useFactory: appInitializer,
       multi: true,
       deps: [UserService],
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true,
     },
   ],
   bootstrap: [AppComponent],

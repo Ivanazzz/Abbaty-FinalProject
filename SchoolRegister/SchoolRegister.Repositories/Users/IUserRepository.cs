@@ -10,5 +10,9 @@ namespace SchoolRegister.Repositories.Users
         Task<User> LoginAsync(UserLoginDto userLoginDto);
 
         Task<UserDto> GetUserAsync(string username);
+
+        Task<List<UserDto>> GetAllUsersAsync();
+
+        Task<List<UserDto>> GetFilteredUsersAsync(UserFilterDto filter);
     }
 }

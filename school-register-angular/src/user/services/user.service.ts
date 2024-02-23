@@ -5,6 +5,7 @@ import { UserRegistrationDto } from "../dtos/user-registration-dto";
 import { UserLoginDto } from "../dtos/user-login-dto";
 import { UserDto } from "../dtos/user-dto";
 import { Router } from "@angular/router";
+import { UserFilterDto } from "../dtos/user-filter-dto";
 
 @Injectable({
   providedIn: "root",
@@ -27,7 +28,7 @@ export class UserService {
   }
 
   register(userDto: UserRegistrationDto): Observable<void> {
-    return this.http.post<void>(`${this.baseUrl}/api/Users/Register`, userDto);
+    return this.http.post<void>(`${this.baseUrl}/api/Users/SignUp`, userDto);
   }
 
   login(userDto: UserLoginDto): Observable<void> {
@@ -39,5 +40,22 @@ export class UserService {
     localStorage.clear();
     this.router.navigate(["/"]);
     return;
+  }
+
+  getAll(): Observable<UserDto[]> {
+    return this.http.get<UserDto[]>(`${this.baseUrl}/api/Users`);
+  }
+
+  getFiltered(userDto: UserFilterDto): Observable<UserDto[]> {
+    return this.http.get<UserDto[]>(
+      `${this.baseUrl}/api/Users/Filter?${this.composeQueryString(userDto)}`
+    );
+  }
+
+  composeQueryString(userDto: UserFilterDto): string {
+    return Object.entries(userDto)
+      .filter(([_, value]) => value !== null) // [ [ 'pageNum', 3 ], [ 'perPageNum', 10 ], [ 'category', 'food' ] ]
+      .map(([key, value]) => `${key}=${value}`) // [ 'pageNum=3', 'perPageNum=10', 'category=food' ]
+      .join("&"); // 'pageNum=3&perPageNum=10&category=food'
   }
 }

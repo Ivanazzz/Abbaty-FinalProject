@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using SchoolRegister.Models.CustomExceptions;
 using SchoolRegister.Models.Dtos;
@@ -22,7 +23,7 @@ namespace SchoolRegister.Controllers
             _config = config;
         }
 
-        [HttpPost("Register")]
+        [HttpPost("SignUp")]
         public async Task<IActionResult> RegisterAsync([FromBody] UserRegistrationDto userRegistrationDto)
         {
             try
@@ -85,6 +86,24 @@ namespace SchoolRegister.Controllers
             var user = await userRepository.GetUserAsync(username);
 
             return Ok(user);
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> GetAllUsersAsync()
+        {
+            var users = await userRepository.GetAllUsersAsync();
+
+            return Ok(users);
+        }
+
+        [HttpGet("Filter")]
+        [Authorize]
+        public async Task<IActionResult> GetFilteredAsync([FromQuery] UserFilterDto userDto)
+        {
+            List<UserDto> users = await userRepository.GetFilteredUsersAsync(userDto);
+
+            return Ok(users);
         }
     }
 }

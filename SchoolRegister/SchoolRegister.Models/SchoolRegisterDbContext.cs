@@ -17,7 +17,7 @@ namespace SchoolRegister.Models
             this.httpContextAccessor = httpContextAccessor;
         }
 
-        public DbSet<Person> People { get; set; }
+        public DbSet<Person> Persons { get; set; }
 
         public DbSet<PersonHistory> PersonHistories { get; set; }
 
