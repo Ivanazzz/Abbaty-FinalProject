@@ -44,7 +44,8 @@ namespace SchoolRegister.Models.Dtos
 
             if (!string.IsNullOrEmpty(BirthDate))
             {
-                query = query.Where(p => p.BirthDate == DateTime.SpecifyKind(DateTime.Parse(BirthDate), DateTimeKind.Utc));
+                DateTime date = DateTime.Parse(BirthDate);
+                query = query.Where(p => p.BirthDate == date);
             }
 
             if (Gender.HasValue)
