@@ -1,0 +1,41 @@
+<div class="container login-form">
+  <h1>Вход в системата</h1>
+  <div class="form-group">
+    <label for="username">Потребителско име:</label>
+    <input
+      #usernameInput="ngModel"
+      type="text"
+      class="form-control"
+      [(ngModel)]="userDto.username"
+      id="username"
+      required
+    />
+  </div>
+  <div class="form-group">
+    <label for="password">Парола:</label>
+    <input
+      #passwordInput="ngModel"
+      type="password"
+      class="form-control"
+      [(ngModel)]="userDto.password"
+      id="password"
+      required
+    />
+  </div>
+  <div class="btn-wrapper">
+    <button
+      (click)="onSubmit()"
+      class="btn btn-success"
+      [disabled]="!isFormValid()"
+    >
+      Вход
+    </button>
+  </div>
+  <div class="registration">
+    <p>
+      <a class="registration-link" routerLink="/registration" href=""
+        >Регистрация</a
+      >
+    </p>
+  </div>
+</div>

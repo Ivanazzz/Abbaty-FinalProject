@@ -1,0 +1,69 @@
+<div class="container register-form">
+  <h1>Регистриране</h1>
+  <div class="form-group">
+    <label for="username">
+      <span class="important">*</span>
+      Потребителско име:
+    </label>
+    <input
+      #usernameInput="ngModel"
+      type="text"
+      class="form-control"
+      [(ngModel)]="userDto.username"
+      id="username"
+      required
+    />
+  </div>
+  <div class="form-group">
+    <label for="phone">
+      <span class="important">*</span>
+      Телефонен номер:
+    </label>
+    <input
+      #phoneInput="ngModel"
+      type="text"
+      class="form-control"
+      [(ngModel)]="userDto.phone"
+      id="phone"
+      required
+    />
+  </div>
+  <div class="form-group">
+    <label for="password">
+      <span class="important">*</span>
+      Парола:
+    </label>
+    <input
+      #passwordInput="ngModel"
+      type="password"
+      class="form-control"
+      [(ngModel)]="userDto.password"
+      id="password"
+      required
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="schoolName">
+      <span class="important">*</span>
+      Училище:
+    </label>
+    <input
+      #schoolNameInput="ngModel"
+      type="text"
+      class="form-control"
+      [(ngModel)]="userDto.schoolName"
+      id="schoolName"
+      required
+    />
+  </div>
+  <div class="btn-wrapper">
+    <button
+      (click)="onSubmit()"
+      class="btn btn-success"
+      [disabled]="!isFormValid()"
+    >
+      Завърши
+    </button>
+  </div>
+</div>

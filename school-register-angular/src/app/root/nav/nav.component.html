@@ -1,0 +1,42 @@
+<nav
+  *ngIf="userService.currentUser != null"
+  class="navbar navbar-expand-sm navbar-light fixed-top"
+>
+  <div class="nav-items d-flex justify-content-start">
+    <div class="p-2">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <button routerLink="/" class="btn btn-hover" type="button">
+            Преподаватели
+          </button>
+          <button routerLink="/" class="btn btn-hover" type="button">
+            Училища
+          </button>
+          <button routerLink="/" class="btn btn-hover" type="button">
+            Справки
+          </button>
+          <button routerLink="/" class="btn btn-hover" type="button">
+            Потребители
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="buttons d-flex justify-content-end nav-bar-right">
+    <div class="ml-auto p-2">
+      <div
+        *ngIf="userService.currentUser != null"
+        ngbDropdown
+        class="d-inline-block"
+      >
+        <button
+          (click)="userService.logout()"
+          ngbDropdownItem
+          class="btn-logout btn-hover btn-center-text"
+        >
+          Изход
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
